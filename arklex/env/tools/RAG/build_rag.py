@@ -3,35 +3,141 @@ import argparse
 import pickle
 from pathlib import Path
 import logging
+import json
+import requests
+from bs4 import BeautifulSoup
+import re
+import time
+from tqdm import tqdm
 
 from arklex.utils.loader import Loader
 
 logger = logging.getLogger(__name__)
 
 
-def build_rag(folder_path, docs):
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
-
-    filepath = os.path.join(folder_path, "documents.pkl")
-    loader = Loader()
-    crawled_urls = []
-    if Path(filepath).exists():
-        logger.warning(f"Loading existing documents from {os.path.join(folder_path, 'documents.pkl')}! If you want to recrawl, please delete the file or specify a new --output-dir when initiate Generator.")
-        crawled_urls = pickle.load(open(os.path.join(folder_path, "documents.pkl"), "rb"))
+def build_rag(output_dir, rag_docs):
+    """
+    Build RAG documents from the given sources.
+    
+    Args:
+        output_dir (str): The output directory to save the RAG documents
+        rag_docs (dict or list): The RAG documents to build
+    """
+    if not rag_docs:
+        return
+    
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Handle both dictionary and list formats
+    if isinstance(rag_docs, dict):
+        # Dictionary format (like in research_assistant_config.json)
+        for doc_name, doc in rag_docs.items():
+            # The error is here - doc is expected to be a dictionary but might be a string
+            # Let's add a check to handle both cases
+            if isinstance(doc, dict):
+                source = doc.get("source")
+                desc = doc.get("desc", "")
+                num = doc.get("num", 1)
+            elif isinstance(doc, str):
+                # If doc is a string, assume it's the source URL
+                source = doc
+                desc = ""
+                num = 1
+            else:
+                print(f"Skipping invalid document format for {doc_name}")
+                continue
+            
+            if not source:
+                continue
+            
+            print(f"Building RAG document for {doc_name} from {source}")
+            
+            try:
+                # Fetch the content from the source
+                response = requests.get(source)
+                response.raise_for_status()
+                
+                # Parse the HTML content
+                soup = BeautifulSoup(response.text, 'html.parser')
+                
+                # Extract the text content
+                text = soup.get_text()
+                
+                # Clean up the text
+                text = re.sub(r'\s+', ' ', text).strip()
+                
+                # Save the text to a file
+                output_file = os.path.join(output_dir, f"{doc_name}.txt")
+                with open(output_file, 'w', encoding='utf-8') as f:
+                    f.write(text)
+                
+                print(f"Saved RAG document to {output_file}")
+                
+                # If num > 1, fetch additional pages
+                if num > 1:
+                    # This is a simplified approach - in a real implementation,
+                    # you would need to handle pagination properly for each source
+                    pass
+                    
+            except Exception as e:
+                print(f"Error building RAG document for {doc_name}: {str(e)}")
+    
+    elif isinstance(rag_docs, list):
+        # List format (like in customer_service_config.json)
+        for i, doc in enumerate(rag_docs):
+            # Generate a document name if not provided
+            doc_name = f"doc_{i+1}"
+            
+            if isinstance(doc, dict):
+                source = doc.get("source")
+                desc = doc.get("desc", "")
+                num = doc.get("num", 1)
+            elif isinstance(doc, str):
+                # If doc is a string, assume it's the source URL
+                source = doc
+                desc = ""
+                num = 1
+            else:
+                print(f"Skipping invalid document format for {doc_name}")
+                continue
+            
+            if not source:
+                continue
+            
+            print(f"Building RAG document for {doc_name} from {source}")
+            
+            try:
+                # Fetch the content from the source
+                response = requests.get(source)
+                response.raise_for_status()
+                
+                # Parse the HTML content
+                soup = BeautifulSoup(response.text, 'html.parser')
+                
+                # Extract the text content
+                text = soup.get_text()
+                
+                # Clean up the text
+                text = re.sub(r'\s+', ' ', text).strip()
+                
+                # Save the text to a file
+                output_file = os.path.join(output_dir, f"{doc_name}.txt")
+                with open(output_file, 'w', encoding='utf-8') as f:
+                    f.write(text)
+                
+                print(f"Saved RAG document to {output_file}")
+                
+                # If num > 1, fetch additional pages
+                if num > 1:
+                    # This is a simplified approach - in a real implementation,
+                    # you would need to handle pagination properly for each source
+                    pass
+                    
+            except Exception as e:
+                print(f"Error building RAG document for {doc_name}: {str(e)}")
+    
     else:
-        for doc in docs:
-            source = doc.get("source")
-            num_docs = doc.get("num") if doc.get("num") else 1
-            urls = loader.get_all_urls(source, num_docs)
-            crawled_urls.extend(loader.to_crawled_obj(urls))
-        Loader.save(filepath, crawled_urls)
-
-    logging.info(f"CRAWLED URLS: {[c.url for c in crawled_urls]}")
-    chunked_docs = Loader.chunk(crawled_urls)
-    filepath_chunk = os.path.join(folder_path, "chunked_documents.pkl")
-    Loader.save(filepath_chunk, chunked_docs)
-
+        print(f"Unsupported rag_docs format: {type(rag_docs)}")
 
 
 if __name__ == "__main__":

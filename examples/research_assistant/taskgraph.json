@@ -1,0 +1,1111 @@
+{
+    "nodes": [
+        [
+            "0",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Welcome to your Academic Research Assistant! How can I assist you with your research today? Whether you need help finding relevant papers, summarizing findings, or organizing information, I'm here to support your academic journey.",
+                    "task": "start message",
+                    "directed": false
+                },
+                "limit": 1,
+                "type": "start"
+            }
+        ],
+        [
+            "1",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Hello! What research question or topic are you interested in exploring today?",
+                    "task": "Greet the user and ask for their research question or topic of interest.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "2",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Got it. Are there any specific details or subtopics you are particularly interested in?",
+                    "task": "Use the MessageWorker to confirm understanding of the user's input and ask for any specific details or subtopics they are interested in.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "3",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Thank you for providing those details. Do you have any additional requirements, like preferred sources or publication dates?",
+                    "task": "If the user provides specific details, use the MessageWorker to acknowledge them and inquire about any additional requirements, such as preferred sources or publication dates.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "4",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440001",
+                    "name": "SearchWorker"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Once the research question or topic is clearly understood, use the SearchWorker to conduct an initial search for relevant academic sources or papers.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "5",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Here is a summary of the initial findings. Would you like more information on any specific aspect, or do these findings meet your expectations?",
+                    "task": "Present a summary of the initial findings to the user using the MessageWorker and ask if they would like more information on any specific aspect or if the findings meet their expectations.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "6",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Could you please specify your research topic or question so I can assist you better?",
+                    "task": "Inquire about the user's specific research topic or question to understand the scope and details needed for the search.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "7",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440005",
+                    "name": "academic-search_arxiv-search_arxiv"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Perform a search across academic databases using the SearchWorker to find relevant papers and articles related to the user's topic.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "8",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Here are the initial findings based on your topic. Would you like to refine the search or need more specific information?",
+                    "task": "Present the initial findings to the user and ask if they would like to refine the search or need more specific information.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "9",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440006",
+                    "name": "academic-search_pubmed-search_pubmed"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "If the user requests more specific information, refine the search parameters based on the user's feedback and perform another search.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "10",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440008",
+                    "name": "academic-generate_research_report-generate_research_report"
+                },
+                "attribute": {
+                    "value": "I have summarized the selected papers for you. Would you like me to organize these findings into a structured report?",
+                    "task": "Provide summaries of the selected papers or articles if requested by the user and offer to organize the findings into a structured report.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "11",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Could you please specify the research topic or query you are interested in?",
+                    "task": "Inquire about the user's specific research query or topic of interest to understand what information they are seeking.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "12",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440005",
+                    "name": "academic-search_arxiv-search_arxiv"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Use the SearchWorker to find relevant research papers based on the user's query.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "13",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440007",
+                    "name": "academic-extract_paper_info-extract_paper_info"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Extract key information from the identified research papers, such as the main findings, methodologies, and conclusions.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "14",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440008",
+                    "name": "academic-generate_research_report-generate_research_report"
+                },
+                "attribute": {
+                    "value": "Here is a summary of the main findings and methodologies from the research papers we found.",
+                    "task": "Present the extracted information to the user in a structured and concise format.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "15",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Do you need any further information or have additional questions about this research topic?",
+                    "task": "Ask the user if they need further information or have additional questions about the research topic.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "16",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Could you please tell me more about the specific research topic you are interested in summarizing?",
+                    "task": "Engage with the user to understand the specific research topic they are interested in summarizing.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "17",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440001",
+                    "name": "SearchWorker"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Utilize the SearchWorker to conduct a real-time search for academic papers and sources relevant to the user's research topic.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "18",
+            {
+                "resource": {
+                    "id": "default_worker",
+                    "name": "DefaultWorker"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Use the DefaultWorker to gather and extract key points and findings from the identified sources.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "19",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440008",
+                    "name": "academic-generate_research_report-generate_research_report"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Organize the extracted information into a structured format, highlighting the main findings and insights from multiple sources.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "20",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Here are the summarized findings from your research topic. Would you like more details or additional sources?",
+                    "task": "Present the summarized findings to the user using the MessageWorker and inquire if further details or additional sources are needed.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "21",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Could you please specify the research papers or topics you are interested in connecting?",
+                    "task": "Ask the user to specify the research papers or topics they are interested in connecting.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "22",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440005",
+                    "name": "academic-search_arxiv-search_arxiv"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Use the SearchWorker to find and retrieve relevant information about the specified research papers or topics.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "23",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440007",
+                    "name": "academic-extract_paper_info-extract_paper_info"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Analyze the content of the retrieved papers to identify potential connections, such as shared methodologies, similar findings, or cited works.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "24",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440008",
+                    "name": "academic-generate_research_report-generate_research_report"
+                },
+                "attribute": {
+                    "value": "Here are the potential connections identified between the research papers you specified.",
+                    "task": "Present the identified connections to the user in a structured format using the MessageWorker.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "25",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Do you need further assistance or would you like to explore additional connections?",
+                    "task": "Ask the user if they need further assistance or additional connections.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "26",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Could you please specify the research topic or question you are interested in exploring?",
+                    "task": "Ask the user for the specific research topic or question they would like to explore.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "27",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440001",
+                    "name": "SearchWorker"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Use the SearchWorker to find relevant academic papers and articles related to the user's research topic.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "28",
+            {
+                "resource": {
+                    "id": "default_worker",
+                    "name": "DefaultWorker"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Summarize the key findings from the retrieved academic sources using the DefaultWorker.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "29",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440008",
+                    "name": "academic-generate_research_report-generate_research_report"
+                },
+                "attribute": {
+                    "value": "Here is a structured report based on the summarized information from the academic sources.",
+                    "task": "Organize the summarized information into a structured report format and present it to the user using the MessageWorker.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "30",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Do you need any additional information or further refinement of the report?",
+                    "task": "Ask the user if they need any additional information or further refinement of the report.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "31",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "I have made the necessary adjustments as per your feedback. Here is the finalized report.",
+                    "task": "Make necessary adjustments or provide additional information based on user feedback and finalize the report.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "32",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Can you please clarify your research topic and any specific requirements you have for sources or citation styles?",
+                    "task": "Clarify the user's research topic and any specific requirements for sources or citation styles.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "33",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440001",
+                    "name": "SearchWorker"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Use the SearchWorker to find relevant academic papers and sources based on the user's topic.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "34",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440007",
+                    "name": "academic-extract_paper_info-extract_paper_info"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Extract key information and citations from the identified sources.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "35",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Here are the citations extracted from the sources. Please let me know if they meet your required format or style.",
+                    "task": "Present the extracted citations to the user using the MessageWorker, ensuring they meet the user's required format or style.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ],
+        [
+            "36",
+            {
+                "resource": {
+                    "id": "550e8400-e29b-41d4-a716-446655440000",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Do you need any further assistance or additional sources for your research?",
+                    "task": "Ask the user if they need further assistance or additional sources.",
+                    "directed": false
+                },
+                "limit": 1
+            }
+        ]
+    ],
+    "edges": [
+        [
+            "0",
+            "1",
+            {
+                "intent": "Understand the user's research question or topic",
+                "attribute": {
+                    "weight": 1,
+                    "pred": true,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "1",
+            "2",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "2",
+            "3",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "3",
+            "4",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "4",
+            "5",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "0",
+            "6",
+            {
+                "intent": "Search academic databases for relevant papers and articles",
+                "attribute": {
+                    "weight": 1,
+                    "pred": true,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "6",
+            "7",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "7",
+            "8",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "8",
+            "9",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "9",
+            "10",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "0",
+            "11",
+            {
+                "intent": "Extract key information from research papers",
+                "attribute": {
+                    "weight": 1,
+                    "pred": true,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "11",
+            "12",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "12",
+            "13",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "13",
+            "14",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "14",
+            "15",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "0",
+            "16",
+            {
+                "intent": "Summarize findings from multiple sources",
+                "attribute": {
+                    "weight": 1,
+                    "pred": true,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "16",
+            "17",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "17",
+            "18",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "18",
+            "19",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "19",
+            "20",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "0",
+            "21",
+            {
+                "intent": "Identify connections between different research papers",
+                "attribute": {
+                    "weight": 1,
+                    "pred": true,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "21",
+            "22",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "22",
+            "23",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "23",
+            "24",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "24",
+            "25",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "0",
+            "26",
+            {
+                "intent": "Organize information into a structured report",
+                "attribute": {
+                    "weight": 1,
+                    "pred": true,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "26",
+            "27",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "27",
+            "28",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "28",
+            "29",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "29",
+            "30",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "30",
+            "31",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "0",
+            "32",
+            {
+                "intent": "Provide citations for all sources used",
+                "attribute": {
+                    "weight": 1,
+                    "pred": true,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "32",
+            "33",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "33",
+            "34",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "34",
+            "35",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "35",
+            "36",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ]
+    ],
+    "role": "Academic Research Assistant",
+    "user_objective": "The Academic Research Assistant helps users conduct research by searching academic sources (e.g., ArXiv, PubMed), summarizing findings, and organizing them into comprehensive reports. It can understand complex research questions, find relevant papers, extract key information, and present it in a structured format.",
+    "builder_objective": "The Academic Research Assistant aims to improve the quality and efficiency of academic research by providing accurate information from reliable sources while helping users discover connections between different research papers that might not be immediately obvious.",
+    "domain": "Academic Research and Literature Review",
+    "intro": "Academic research requires thorough literature reviews across multiple databases like ArXiv, PubMed, and academic journals. This process involves searching for relevant papers, reading and understanding complex content, extracting key information, and synthesizing findings into coherent reports. The Academic Research Assistant streamlines this process by automating searches, summarizing papers, and organizing information in a structured format.",
+    "rag_docs": [
+        {
+            "source": "https://arxiv.org/",
+            "desc": "ArXiv is an open-access repository of electronic preprints and postprints approved for posting after moderation, but not peer review. It consists of scientific papers in the fields of mathematics, physics, astronomy, electrical engineering, computer science, quantitative biology, statistics, mathematical finance and economics.",
+            "num": 1
+        },
+        {
+            "source": "https://pubmed.ncbi.nlm.nih.gov/",
+            "desc": "PubMed is a free search engine accessing primarily the MEDLINE database of references and abstracts on life sciences and biomedical topics. The United States National Library of Medicine at the National Institutes of Health maintains the database as part of the Entrez system of information retrieval.",
+            "num": 1
+        }
+    ],
+    "tasks": [
+        "Understand the user's research question or topic",
+        "Search academic databases for relevant papers and articles",
+        "Extract key information from research papers",
+        "Summarize findings from multiple sources",
+        "Identify connections between different research papers",
+        "Organize information into a structured report",
+        "Provide citations for all sources used"
+    ],
+    "workers": [
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440000",
+            "name": "MessageWorker",
+            "path": "message_worker.py"
+        },
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440001",
+            "name": "SearchWorker",
+            "path": "search_worker.py"
+        },
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440002",
+            "name": "DefaultWorker",
+            "path": "default_worker.py"
+        },
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440003",
+            "name": "FaissRAGWorker",
+            "path": "faiss_rag_worker.py"
+        },
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440004",
+            "name": "HITLWorker",
+            "path": "hitl_worker.py"
+        }
+    ],
+    "tools": [
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440005",
+            "name": "search_arxiv",
+            "path": "academic/search_arxiv.py",
+            "fixed_args": {}
+        },
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440006",
+            "name": "search_pubmed",
+            "path": "academic/search_pubmed.py",
+            "fixed_args": {}
+        },
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440007",
+            "name": "extract_paper_info",
+            "path": "academic/extract_paper_info.py",
+            "fixed_args": {}
+        },
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440008",
+            "name": "generate_research_report",
+            "path": "academic/generate_research_report.py",
+            "fixed_args": {}
+        }
+    ],
+    "nluapi": "",
+    "slotfillapi": ""
+}

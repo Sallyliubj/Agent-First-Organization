@@ -1,0 +1,73 @@
+[
+    {
+        "task_name": "Understand the user's research question or topic",
+        "steps": [
+            "Greet the user and ask for their research question or topic of interest.",
+            "Use the MessageWorker to confirm understanding of the user's input and ask for any specific details or subtopics they are interested in.",
+            "If the user provides specific details, use the MessageWorker to acknowledge them and inquire about any additional requirements, such as preferred sources or publication dates.",
+            "Once the research question or topic is clearly understood, use the SearchWorker to conduct an initial search for relevant academic sources or papers.",
+            "Present a summary of the initial findings to the user using the MessageWorker and ask if they would like more information on any specific aspect or if the findings meet their expectations."
+        ]
+    },
+    {
+        "task_name": "Search academic databases for relevant papers and articles",
+        "steps": [
+            "Inquire about the user's specific research topic or question to understand the scope and details needed for the search.",
+            "Perform a search across academic databases using the SearchWorker to find relevant papers and articles related to the user's topic.",
+            "Present the initial findings to the user and ask if they would like to refine the search or need more specific information.",
+            "If the user requests more specific information, refine the search parameters based on the user's feedback and perform another search.",
+            "Provide summaries of the selected papers or articles if requested by the user and offer to organize the findings into a structured report."
+        ]
+    },
+    {
+        "task_name": "Extract key information from research papers",
+        "steps": [
+            "Inquire about the user's specific research query or topic of interest to understand what information they are seeking.",
+            "Use the SearchWorker to find relevant research papers based on the user's query.",
+            "Extract key information from the identified research papers, such as the main findings, methodologies, and conclusions.",
+            "Present the extracted information to the user in a structured and concise format.",
+            "Ask the user if they need further information or have additional questions about the research topic."
+        ]
+    },
+    {
+        "task_name": "Summarize findings from multiple sources",
+        "steps": [
+            "Engage with the user to understand the specific research topic they are interested in summarizing.",
+            "Utilize the SearchWorker to conduct a real-time search for academic papers and sources relevant to the user's research topic.",
+            "Use the DefaultWorker to gather and extract key points and findings from the identified sources.",
+            "Organize the extracted information into a structured format, highlighting the main findings and insights from multiple sources.",
+            "Present the summarized findings to the user using the MessageWorker and inquire if further details or additional sources are needed."
+        ]
+    },
+    {
+        "task_name": "Identify connections between different research papers",
+        "steps": [
+            "Ask the user to specify the research papers or topics they are interested in connecting.",
+            "Use the SearchWorker to find and retrieve relevant information about the specified research papers or topics.",
+            "Analyze the content of the retrieved papers to identify potential connections, such as shared methodologies, similar findings, or cited works.",
+            "Present the identified connections to the user in a structured format using the MessageWorker.",
+            "Ask the user if they need further assistance or additional connections."
+        ]
+    },
+    {
+        "task_name": "Organize information into a structured report",
+        "steps": [
+            "Ask the user for the specific research topic or question they would like to explore.",
+            "Use the SearchWorker to find relevant academic papers and articles related to the user's research topic.",
+            "Summarize the key findings from the retrieved academic sources using the DefaultWorker.",
+            "Organize the summarized information into a structured report format and present it to the user using the MessageWorker.",
+            "Ask the user if they need any additional information or further refinement of the report.",
+            "Make necessary adjustments or provide additional information based on user feedback and finalize the report."
+        ]
+    },
+    {
+        "task_name": "Provide citations for all sources used",
+        "steps": [
+            "Clarify the user's research topic and any specific requirements for sources or citation styles.",
+            "Use the SearchWorker to find relevant academic papers and sources based on the user's topic.",
+            "Extract key information and citations from the identified sources.",
+            "Present the extracted citations to the user using the MessageWorker, ensuring they meet the user's required format or style.",
+            "Ask the user if they need further assistance or additional sources."
+        ]
+    }
+]

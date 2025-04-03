@@ -1,0 +1,39 @@
+[
+    {
+        "goal": "Find recent papers on machine learning for healthcare applications",
+        "expected_sources": [
+            "ArXiv",
+            "PubMed"
+        ],
+        "complexity": "medium"
+    },
+    {
+        "goal": "Research the latest developments in quantum computing algorithms",
+        "expected_sources": [
+            "ArXiv"
+        ],
+        "complexity": "high"
+    },
+    {
+        "goal": "Find studies on the effectiveness of mindfulness meditation for stress reduction",
+        "expected_sources": [
+            "PubMed"
+        ],
+        "complexity": "medium"
+    },
+    {
+        "goal": "Research the environmental impact of electric vehicles compared to traditional vehicles",
+        "expected_sources": [
+            "ArXiv",
+            "PubMed"
+        ],
+        "complexity": "medium"
+    },
+    {
+        "goal": "Find papers discussing natural language processing techniques for sentiment analysis",
+        "expected_sources": [
+            "ArXiv"
+        ],
+        "complexity": "medium"
+    }
+]

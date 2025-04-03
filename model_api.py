@@ -16,7 +16,7 @@ from openai import OpenAI
 from fastapi import FastAPI, Response
 
 from arklex.orchestrator.orchestrator import AgentOrg
-from create import API_PORT
+API_PORT = 8000  # Define the port directly in this file
 from arklex.utils.model_config import MODEL
 
 NLUAPI_ADDR = f"http://localhost:{API_PORT}/nlu"
@@ -55,6 +55,8 @@ atexit.register(terminate_subprocess)
 signal.signal(signal.SIGINT, lambda signum, frame: exit(0))
 signal.signal(signal.SIGTERM, lambda signum, frame: exit(0))
 
+# Create logs directory if it doesn't exist
+os.makedirs("./logs", exist_ok=True)
 
 def get_api_bot_response(args, history, user_text, parameters, env):
     data = {"text": user_text, 'chat_history': history, 'parameters': parameters}
@@ -71,7 +73,7 @@ def start_apis():
     command = [
         "uvicorn",
         "arklex.orchestrator.NLU.api:app",  # Replace with proper import path
-        "--port", API_PORT,
+        "--port", str(API_PORT),  # Convert port to string
         "--host", "0.0.0.0",
         "--log-level", "info"
     ]

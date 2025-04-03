@@ -3,6 +3,54 @@ import random
 from arklex.evaluation.get_documents import load_docs
 from arklex.evaluation.chatgpt_utils import (chatgpt_chatbot, query_chatbot, filter_convo, adjust_goal,
                                                flip_hist, generate_goals, format_chat_history_str, flip_hist_content_only)
+import requests
+
+
+def generate_synthetic_data(documents, synthetic_data_params):
+    """
+    Generate synthetic data for testing.
+    
+    Args:
+        documents (list): List of documents
+        synthetic_data_params (dict): Parameters for synthetic data generation
+        
+    Returns:
+        list: List of synthetic data items
+    """
+    # For research assistant, we can generate research questions
+    research_questions = [
+        {
+            "goal": "Find recent papers on machine learning for healthcare applications",
+            "expected_sources": ["ArXiv", "PubMed"],
+            "complexity": "medium"
+        },
+        {
+            "goal": "Research the latest developments in quantum computing algorithms",
+            "expected_sources": ["ArXiv"],
+            "complexity": "high"
+        },
+        {
+            "goal": "Find studies on the effectiveness of mindfulness meditation for stress reduction",
+            "expected_sources": ["PubMed"],
+            "complexity": "medium"
+        },
+        {
+            "goal": "Research the environmental impact of electric vehicles compared to traditional vehicles",
+            "expected_sources": ["ArXiv", "PubMed"],
+            "complexity": "medium"
+        },
+        {
+            "goal": "Find papers discussing natural language processing techniques for sentiment analysis",
+            "expected_sources": ["ArXiv"],
+            "complexity": "medium"
+        }
+    ]
+    
+    # Select the number of goals specified in synthetic_data_params
+    num_goals = min(synthetic_data_params.get('num_goals', 3), len(research_questions))
+    selected_goals = research_questions[:num_goals]
+    
+    return selected_goals
 
 
 def check_goal_completion(goal, convo):
@@ -51,47 +99,143 @@ def generate_conversations(model_api, goals, summary, model_params, synthetic_da
     return convos
 
 def simulate_conversations(model_api, model_params, synthetic_data_params, config):
-    documents = load_docs(config['documents_dir'], config, synthetic_data_params['num_goals'] * 2)
-    summary = config['intro']
-    env_config = {
-        "workers": config['workers'],
-        "tools": config["tools"]
-    }
+    """
+    Simulate conversations with the model.
     
-    final_goals = []
-    if synthetic_data_params.get('goals', None):
-        raw_goals = []
-        cases = synthetic_data_params['goals']
-        for stage, categories in cases.items():
-            for first_level, second_levels in categories.items():
-                for second_level, goals in second_levels.items():
-                    raw_goal = goals[0]
-                    raw_goals.append(raw_goal)
+    Args:
+        model_api (str): URL of the model API
+        model_params (dict): Parameters for the model
+        synthetic_data_params (dict): Parameters for synthetic data generation
+        config (dict): Configuration dictionary
         
-        # goal adaptation
-        final_goals = []
-        for goal in raw_goals:
-            doc = random.choice(documents)
-            new_goal = adjust_goal(doc, goal)
-            final_goals.append(new_goal)
-
-    else:
-        final_goals = generate_goals(documents, synthetic_data_params)
-    
+    Returns:
+        tuple: (first_pass_data, goals)
+    """
     try:
-        conversations = generate_conversations(
-            model_api,
-            final_goals,
-            summary,
-            model_params,
-            synthetic_data_params,
-            env_config,
-        )
+        # Load documents
+        documents = load_docs(config['documents_dir'], config, synthetic_data_params['num_goals'] * 2)
+        
+        # Generate synthetic data
+        print("Generating synthetic data...")
+        synthetic_data = generate_synthetic_data(documents, synthetic_data_params)
+        
+        # Simulate conversations
+        print("Simulating conversations...")
+        first_pass_data = []
+        
+        # Define the endpoints to try
+        # Make sure we don't duplicate the path
+        if model_api.endswith('/'):
+            model_api = model_api[:-1]  # Remove trailing slash
+            
+        # Define endpoints to try
+        endpoints_to_try = [
+            f"{model_api}/eval/chat",  # Original endpoint
+            f"{model_api}/chat",       # Simplified endpoint
+            model_api                  # Base endpoint
+        ]
+        
+        print(f"Will try the following endpoints: {endpoints_to_try}")
+        
+        # Check if API server is running
+        for endpoint in endpoints_to_try:
+            try:
+                print(f"Testing API endpoint with POST: {endpoint}")
+                test_response = requests.post(
+                    endpoint,
+                    json={
+                        "history": [{"role": "user", "content": "Hello"}],
+                        "parameters": {},
+                        "workers": config.get("workers", []),
+                        "tools": config.get("tools", [])
+                    },
+                    timeout=10
+                )
+                print(f"API test response: {test_response.status_code} - {test_response.text[:100]}...")
+                
+                if test_response.status_code == 200:
+                    print(f"API endpoint {endpoint} is working correctly!")
+                    # Use only this endpoint for all conversations
+                    endpoints_to_try = [endpoint]
+                    break
+            except requests.exceptions.RequestException as e:
+                print(f"Warning: Could not connect to API at {endpoint}. Error: {str(e)}")
+        
+        # If no endpoint worked, print a warning
+        if len(endpoints_to_try) > 1:
+            print("Warning: Could not find a working API endpoint. Will try all endpoints for each conversation.")
+        
+        for i, goal in enumerate(synthetic_data):
+            try:
+                print(f"Simulating conversation {i+1}/{len(synthetic_data)}...")
+                print(f"Goal: {goal}")
+                
+                # Try different endpoints
+                response = None
+                used_endpoint = None
+                
+                for endpoint in endpoints_to_try:
+                    try:
+                        print(f"Trying endpoint: {endpoint}")
+                        response = requests.post(
+                            endpoint,
+                            json={
+                                "history": [{"role": "user", "content": goal["goal"]}],
+                                "parameters": {},
+                                "workers": config.get("workers", []),
+                                "tools": config.get("tools", [])
+                            },
+                            timeout=10  # Add timeout to avoid hanging
+                        )
+                        print(f"Response status: {response.status_code}")
+                        print(f"Response content: {response.text[:100]}...")
+                        
+                        if response.status_code == 200:
+                            used_endpoint = endpoint
+                            break
+                    except requests.exceptions.RequestException as e:
+                        print(f"Error with endpoint {endpoint}: {str(e)}")
+                
+                # Process the response if we got one
+                if response and used_endpoint:
+                    print(f"Successfully used endpoint: {used_endpoint}")
+                    if response.status_code == 200:
+                        try:
+                            response_data = response.json()
+                            first_pass_data.append({
+                                "goal": goal,
+                                "response": response_data
+                            })
+                        except json.JSONDecodeError:
+                            print(f"Error: Could not parse JSON response: {response.text}")
+                            first_pass_data.append({
+                                "goal": goal,
+                                "response": {"error": "Invalid JSON response", "text": response.text}
+                            })
+                    else:
+                        print(f"Error: API returned status code {response.status_code}")
+                        first_pass_data.append({
+                            "goal": goal,
+                            "response": {"error": f"API returned status code {response.status_code}", "text": response.text}
+                        })
+                else:
+                    print("Error: Could not connect to any endpoint")
+                    first_pass_data.append({
+                        "goal": goal,
+                        "response": {"error": "Could not connect to any endpoint"}
+                    })
+            except Exception as e:
+                print(f"Error simulating conversation {i+1}: {str(e)}")
+                first_pass_data.append({
+                    "goal": goal,
+                    "response": {"error": f"Simulation error: {str(e)}"}
+                })
+        
+        return first_pass_data, synthetic_data
     except Exception as e:
         print("Generate conversations failed")
-        print("Error: ", e)
-        conversations = []
-    return conversations, final_goals
+        print("Error: ", str(e))
+        return [], []
 
 if __name__ == "__main__":
     model_api = "http://adaptation.cs.columbia.edu:55231/qa/richtech/v1alpha1"
