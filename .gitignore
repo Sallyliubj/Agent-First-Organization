@@ -45,3 +45,6 @@ temp_files
 
 results/
 .qodo
+
+venv/
+.env
